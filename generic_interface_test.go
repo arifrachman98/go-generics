@@ -1,5 +1,11 @@
 package gogenerics
 
+import (
+	"testing"
+
+	"github.com/stretchr/testify/assert"
+)
+
 type GetterSetter[T any] interface {
 	GetValue() T
 	SetValue(value T)
@@ -20,4 +26,13 @@ func (d *MyData[T]) GetValue() T {
 
 func (d *MyData[T]) SetValue(value T) {
 	d.Value = value
+}
+
+func TestGenericInterface(t *testing.T) {
+	data := MyData[string]{}
+
+	res := ChangeValue[string](&data, "arif")
+
+	assert.Equal(t, "arif", res)
+	assert.Equal(t, "arif", data.Value)
 }
